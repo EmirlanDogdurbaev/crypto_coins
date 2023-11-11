@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,12 +17,16 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(
               seedColor: const Color.fromARGB(255, 177, 183, 58)),
           primarySwatch: Colors.amber,
+          dividerColor: Colors.amber,
+          listTileTheme: const ListTileThemeData(iconColor: Colors.amberAccent),
           scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
           textTheme: const TextTheme(
-            bodyMedium: TextStyle(
-                color: Color.fromARGB(255, 255, 191, 0), fontSize: 25),
-            labelMedium: TextStyle(  color: Color.fromARGB(139, 255, 191, 0), fontSize: 20,)
-          )),
+              bodyMedium: TextStyle(
+                  color: Color.fromARGB(255, 255, 191, 0), fontSize: 25),
+              labelMedium: TextStyle(
+                color: Color.fromARGB(139, 255, 191, 0),
+                fontSize: 20,
+              ))),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -53,9 +58,15 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: ListView.builder(
+      body: ListView.separated(
         itemCount: 10,
+        separatorBuilder: (context, index) => Divider(),
         itemBuilder: (context, i) => ListTile(
+          leading: SvgPicture.asset(
+            'assets/svg/bitcoin.svg',
+            height: 30,
+            width: 30,
+          ),
           title: Text(
             "bitcon",
             style: theme.textTheme.bodyMedium,
@@ -63,6 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
           subtitle: Text(
             "1000\$",
             style: theme.textTheme.labelMedium,
+          ),
+          trailing: const Icon(
+            Icons.arrow_forward_ios,
           ),
         ),
       ),
