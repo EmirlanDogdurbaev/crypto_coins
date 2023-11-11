@@ -14,12 +14,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromARGB(255, 177, 183, 58)),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
           primarySwatch: Colors.amber,
           dividerColor: Colors.amber,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color.fromARGB(255, 60, 255, 0),
+            titleTextStyle: TextStyle(
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.w500),
+          ),
           listTileTheme: const ListTileThemeData(iconColor: Colors.amberAccent),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
           textTheme: const TextTheme(
               bodyMedium: TextStyle(
                   color: Color.fromARGB(255, 255, 191, 0), fontSize: 25),
@@ -27,29 +31,26 @@ class MyApp extends StatelessWidget {
                 color: Color.fromARGB(139, 255, 191, 0),
                 fontSize: 20,
               ))),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      routes: {
+        '/': (context) => const CoinList(
+              title: "hello",
+            ),
+        '/coin': (context) => const CryptoCoin()
+      },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class CoinList extends StatefulWidget {
+  const CoinList({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<CoinList> createState() => _CoinListState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  // int _counter = 0;
-
-  // void _incrementCounter() {
-  //   setState(() {
-  //     _counter++;
-  //   });
-  // }
-
+class _CoinListState extends State<CoinList> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -60,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: ListView.separated(
         itemCount: 10,
-        separatorBuilder: (context, index) => Divider(),
+        separatorBuilder: (context, index) => const Divider(),
         itemBuilder: (context, i) => ListTile(
           leading: SvgPicture.asset(
             'assets/svg/bitcoin.svg',
@@ -78,15 +79,26 @@ class _MyHomePageState extends State<MyHomePage> {
           trailing: const Icon(
             Icons.arrow_forward_ios,
           ),
+          onTap: () {
+            Navigator.of(context).pushNamed('/coin');
+          },
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ),
-      // This trailing comma makes auto-formatting nicer for build methods.
     );
     return scaffold;
+  }
+}
+
+class CryptoCoin extends StatelessWidget {
+  const CryptoCoin({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Bitcoin"),
+      ),
+      
+    );
   }
 }
