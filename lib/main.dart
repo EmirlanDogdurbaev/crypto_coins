@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -60,45 +62,72 @@ class _CoinListState extends State<CoinList> {
         title: Text(widget.title),
       ),
       body: ListView.separated(
-        itemCount: 10,
-        separatorBuilder: (context, index) => const Divider(),
-        itemBuilder: (context, i) => ListTile(
-          leading: SvgPicture.asset(
-            'assets/svg/bitcoin.svg',
-            height: 30,
-            width: 30,
-          ),
-          title: Text(
-            "bitcon",
-            style: theme.textTheme.bodyMedium,
-          ),
-          subtitle: Text(
-            "1000\$",
-            style: theme.textTheme.labelMedium,
-          ),
-          trailing: const Icon(
-            Icons.arrow_forward_ios,
-          ),
-          onTap: () {
-            Navigator.of(context).pushNamed('/coin');
-          },
-        ),
-      ),
+          itemCount: 10,
+          separatorBuilder: (context, index) => const Divider(),
+          itemBuilder: (context, i) {
+            const coinName = "bitcoin";
+            return ListTile(
+              leading: SvgPicture.asset(
+                'assets/svg/bitcoin.svg',
+                height: 30,
+                width: 30,
+              ),
+              title: Text(
+                coinName,
+                style: theme.textTheme.bodyMedium,
+              ),
+              subtitle: Text(
+                "1000\$",
+                style: theme.textTheme.labelMedium,
+              ),
+              trailing: const Icon(
+                Icons.arrow_forward_ios,
+              ),
+              onTap: () {
+                Navigator.of(context).pushNamed('/coin', arguments: coinName);
+              },
+            );
+          }),
     );
     return scaffold;
   }
 }
 
-class CryptoCoin extends StatelessWidget {
+class CryptoCoin extends StatefulWidget {
   const CryptoCoin({super.key});
+
+  @override
+  State<CryptoCoin> createState() => _CryptoCoinState();
+}
+
+class _CryptoCoinState extends State<CryptoCoin> {
+  String? coinName;
+
+  @override
+  void didChangeDependencies() {
+    final args = ModalRoute.of(context)?.settings.arguments;
+    if (args == null) {
+      log("aaaa");
+      return;
+    }
+    if (args is! String) {
+      log('adasda');
+      return;
+    }
+
+    coinName = args ;
+    setState(() {
+      
+    });
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Bitcoin"),
+        title: Text(coinName ?? '..'),
       ),
-      
     );
   }
 }
