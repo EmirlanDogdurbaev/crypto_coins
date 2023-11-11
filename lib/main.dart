@@ -106,19 +106,10 @@ class _CryptoCoinState extends State<CryptoCoin> {
   @override
   void didChangeDependencies() {
     final args = ModalRoute.of(context)?.settings.arguments;
-    if (args == null) {
-      log("aaaa");
-      return;
-    }
-    if (args is! String) {
-      log('adasda');
-      return;
-    }
-
-    coinName = args ;
-    setState(() {
-      
-    });
+    assert(
+        args != null && args is String, "you must provided String arguments");
+    coinName = args as String;
+    setState(() {});
     super.didChangeDependencies();
   }
 
