@@ -28,8 +28,7 @@ class _CoinListState extends State<CoinList> {
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, i) {
                 final coin = _coinList![i];
-                final coinName = coin.name;
-                return  CryptoCoinTile(coinName: coinName);
+                return  CryptoCoinTile(coin: coin);
               }),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.download),
