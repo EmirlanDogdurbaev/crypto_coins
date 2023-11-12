@@ -14,6 +14,13 @@ class CoinList extends StatefulWidget {
 
 class _CoinListState extends State<CoinList> {
   List<CoinModel>? _coinList;
+
+  @override
+  void initState() {
+    _loadCryptoCoins();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,21 +29,22 @@ class _CoinListState extends State<CoinList> {
         title: Text(widget.title),
       ),
       body: (_coinList == null)
-          ? const SizedBox()
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
           : ListView.separated(
+              padding: const EdgeInsets.only(top: 16, bottom: 10),
               itemCount: _coinList!.length,
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, i) {
                 final coin = _coinList![i];
-                return  CryptoCoinTile(coin: coin);
+                return CryptoCoinTile(coin: coin);
               }),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.download),
-        onPressed: () async {
-          _coinList = await CoinRepository().getCoinList();
-          setState(() {});
-        },
-      ),
     );
+  }
+
+  Future<void> _loadCryptoCoins() async {
+    _coinList = await CoinRepository().getCoinList();
+    setState(() {});
   }
 }

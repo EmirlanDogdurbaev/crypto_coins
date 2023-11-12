@@ -4,17 +4,23 @@ import 'package:dio/dio.dart';
 class CoinRepository {
   Future<List<CoinModel>> getCoinList() async {
     final response = await Dio().get(
-      'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,BNB&tsyms=USD,EUR',
+      'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB&tsyms=USD,EUR',
     );
 
     final data = response.data as Map<String, dynamic>;
+    final dataRaw = data['RAW'] as Map<String, dynamic>;
 
-    final dataList = data.entries
-        .map((e) => CoinModel(
-              name: e.key,
-              priceInUSD: (e.value as Map<String, dynamic>)['USD'],
-            ))
-        .toList();
+    final dataList = dataRaw.entries.map((e) {
+      final usdData =
+          (e.value as Map<String, dynamic>)["USD"] as Map<String, dynamic>;
+      final price = usdData["PRICE"];
+      final imageUrl = usdData["IMAGEURL"];
+      return CoinModel(
+        name: e.key,
+        priceInUSD: price,
+        imageUrl: 'https://www.cryptocompare.com/$imageUrl'
+      );
+    }).toList();
 
     return dataList;
   }
