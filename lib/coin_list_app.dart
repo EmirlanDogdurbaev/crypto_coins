@@ -9,7 +9,7 @@ class CoinApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Bitcoin',
       theme: darkTheme,
       routes: routes,
     );
