@@ -1,7 +1,8 @@
-import 'package:coins_list/repositories/coin_repository/models/coin_model.dart';
+import 'package:coins_list/repositories/coin_repository/crypto_coins.dart';
 import 'package:dio/dio.dart';
 
-class CoinRepository {
+class CoinRepository implements AbstractsCoinsRepos {
+  @override
   Future<List<CoinModel>> getCoinList() async {
     final response = await Dio().get(
       'https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,BNB&tsyms=USD,EUR',
@@ -16,10 +17,9 @@ class CoinRepository {
       final price = usdData["PRICE"];
       final imageUrl = usdData["IMAGEURL"];
       return CoinModel(
-        name: e.key,
-        priceInUSD: price,
-        imageUrl: 'https://www.cryptocompare.com/$imageUrl'
-      );
+          name: e.key,
+          priceInUSD: price,
+          imageUrl: 'https://www.cryptocompare.com/$imageUrl');
     }).toList();
 
     return dataList;

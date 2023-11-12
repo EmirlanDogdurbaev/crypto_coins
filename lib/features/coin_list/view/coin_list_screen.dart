@@ -1,7 +1,7 @@
 import 'package:coins_list/features/widgets/widgets.dart';
-import 'package:coins_list/repositories/coin_repository/coin_repository.dart';
-import 'package:coins_list/repositories/coin_repository/models/coin_model.dart';
+import 'package:coins_list/repositories/coin_repository/crypto_coins.dart';
 import 'package:flutter/material.dart';
+
 
 class CoinList extends StatefulWidget {
   const CoinList({super.key, required this.title});
