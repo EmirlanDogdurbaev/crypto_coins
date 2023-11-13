@@ -27,7 +27,7 @@ class CryptoCoinTile extends StatelessWidget {
         Icons.arrow_forward_ios,
       ),
       onTap: () {
-        Navigator.of(context).pushNamed('/coin', arguments: coin);
+        Navigator.of(context).pushNamed('/coin', arguments: coin.name);
       },
     );
   }

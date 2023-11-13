@@ -3,7 +3,6 @@ import 'package:coins_list/repositories/coin_repository/crypto_coins.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-
 class CoinList extends StatefulWidget {
   const CoinList({super.key, required this.title});
 
@@ -39,6 +38,7 @@ class _CoinListState extends State<CoinList> {
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, i) {
                 final coin = _coinList![i];
+                
                 return CryptoCoinTile(coin: coin);
               }),
     );
