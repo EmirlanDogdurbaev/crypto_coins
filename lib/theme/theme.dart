@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 final darkTheme = ThemeData(
     scaffoldBackgroundColor: const Color.fromARGB(255, 0, 0, 0),
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
+    //colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
     primarySwatch: Colors.amber,
     dividerColor: Colors.amber,
     appBarTheme: const AppBarTheme(
